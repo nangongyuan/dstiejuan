@@ -21,6 +21,16 @@ conn = MySQLdb.connect(
 task_pool = threadpool.ThreadPool(15)
 
 
+def get_novel(name, author):
+    cur = conn.cursor()
+    sql = "select name from novel where name=%s and author=%s"
+    cur.execute(sql, (name, author))
+    results = cur.fetchall()
+    result = len(results)
+    cur.close()
+    return result > 0
+
+
 def get_chapter_content(url):
     response = requests.get(url)
     reg = '<div id="content".*?>(.*?)</div>'
