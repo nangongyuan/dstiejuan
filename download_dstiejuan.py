@@ -16,7 +16,7 @@ conn = MySQLdb.connect(
         charset='utf8'
     )
 
-task_pool = threadpool.ThreadPool(20)
+task_pool = threadpool.ThreadPool(5)
 
 
 def get_novel(name, author):
@@ -29,8 +29,10 @@ def get_novel(name, author):
 
 
 def save_novel(name, type, author, download_url, remark):
-    response = requests.get(download_url)
+    print("开始下载："+name)
+    response = requests.get(download_url, timeout=10)
     if response.status_code != 200:
+        print("下载失败")
         raise BaseException
     if not os.path.exists("h:/jianghuiyan/"+type):
         os.mkdir("h:/jianghuiyan/"+type)
@@ -62,6 +64,7 @@ def download_story(url):
 
 
 def get_story_info(url):
+    print("线程开始访问："+url)
     response = requests.get(url, headers=headers)
     content = html.etree.HTML(response.text)
     download_url = content.xpath("//p[@class='action']/a")[1].xpath("./@href")[0]
@@ -71,6 +74,7 @@ def get_story_info(url):
             break
         except BaseException as e:
             print(e)
+    print("线程结束："+url)
 
 
 def list_story(content):
@@ -84,7 +88,7 @@ def list_story(content):
     [task_pool.putRequest(req) for req in task_list]
 
 
-for page in range(1, 2):
+for page in range(1, 11):
     full_url = f"http://www.dstiejuan.com/full/{page}.html"
     response = requests.get(full_url)
     content = html.etree.HTML(response.text)
