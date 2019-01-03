@@ -30,6 +30,8 @@ def get_novel(name, author):
 
 def save_novel(name, type, author, download_url, remark):
     response = requests.get(download_url)
+    if response.status_code != 200:
+        raise BaseException
     if not os.path.exists("f:/jianghuiyan/"+type):
         os.mkdir("f:/jianghuiyan/"+type)
     file_name = f"f:/jianghuiyan/{type}/{name}_{author}.txt"
@@ -83,12 +85,13 @@ def list_story(content):
     [task_pool.putRequest(req) for req in task_list]
 
 
-for page in range(1, 11):
-    full_url = f"http://www.dstiejuan.com/full/{page}.html"
-    response = requests.get(full_url)
-    content = html.etree.HTML(response.text)
-    list_story(content)
-    print(f"第{page}页爬完")
+for i in range(1,11):
+    for page in range(1, 11):
+        full_url = f"http://www.dstiejuan.com/full/{page}.html"
+        response = requests.get(full_url)
+        content = html.etree.HTML(response.text)
+        list_story(content)
+        print(f"第{page}页爬完")
 
 task_pool.wait()
 

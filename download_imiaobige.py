@@ -30,6 +30,8 @@ def get_novel(name, author):
 
 def save_novel(name, type, author, download_url, remark):
     response = requests.get(download_url)
+    if response.status_code != 200:
+        raise BaseException
     if not os.path.exists("f:/jianghuiyan/"+type):
         os.mkdir("f:/jianghuiyan/"+type)
     file_name = f"f:/jianghuiyan/{type}/{name}_{author}.txt"
