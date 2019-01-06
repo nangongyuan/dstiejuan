@@ -9,17 +9,6 @@ import threading
 import time
 import urllib3
 
-# try:
-#     file_zip = zipfile.ZipFile(file_name, 'r')
-#     for file in file_zip.namelist():
-#         extracted_path = Path(file_zip.extract(file, 'h:/jianghuiyan/' + type + '/'))
-#         extracted_path.rename('h:/jianghuiyan/' + type + '/' + name + "_" + author + ".txt")
-#     file_zip.close()
-#     os.remove(file_name)
-# except BaseException as e:
-#     print(e)
-#     os.remove(file_name)
-
 headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.80 Safari/537.36"}
 main_url = "https://www.ixdzs.com"
 
@@ -71,9 +60,9 @@ def save_novel(name, type, author, download_url, remark):
     if response.status_code != 200:
         print("下载失败")
         raise BaseException
-    if not os.path.exists("e:/jianghuiyan/"+type):
-        os.mkdir("e:/jianghuiyan/"+type)
-    file_name = f"e:/jianghuiyan/{type}/{name}_{author}.zip"
+    if not os.path.exists("d:/jianghuiyan/"+type):
+        os.mkdir("d:/jianghuiyan/"+type)
+    file_name = f"d:/jianghuiyan/{type}/{name}_{author}.zip"
     if os.path.exists(file_name):
         print("已存在"+file_name)
         return
@@ -156,113 +145,111 @@ def list_story(content):
 
 
 
-for page in range(1, 36):
-    full_url = f"https://www.ixdzs.com/sort/4/index_0_2_0_{page}.html"
-    response = get_response(full_url)
-    content = html.etree.HTML(response.text)
-    list_story(content)
-    print(f"第{page}页爬完")
+# for page in range(1, 36):
+#     full_url = f"https://www.ixdzs.com/sort/4/index_0_2_0_{page}.html"
+#     response = get_response(full_url)
+#     content = html.etree.HTML(response.text)
+#     list_story(content)
+#     print(f"第{page}页爬完")
 
 
-#
+
 # for page in range(1, 52):
 #     full_url = f"https://www.ixdzs.com/sort/5/index_0_2_0_{page}.html"
 #     response = get_response(full_url)
 #     content = html.etree.HTML(response.text)
 #     list_story(content)
 #     print(f"第{page}页爬完")
-#
-# task_pool.wait()
-#
+
+
+
 # for page in range(1, 98):
 #     full_url = f"https://www.ixdzs.com/sort/6/index_0_2_0_{page}.html"
 #     response = get_response(full_url)
 #     content = html.etree.HTML(response.text)
 #     list_story(content)
 #     print(f"第{page}页爬完")
-#
-# task_pool.wait()
-#
+
+
 # for page in range(1, 317):
 #     full_url = f"https://www.ixdzs.com/sort/7/index_0_2_0_{page}.html"
 #     response = get_response(full_url)
 #     content = html.etree.HTML(response.text)
 #     list_story(content)
 #     print(f"第{page}页爬完")
-#
-# task_pool.wait()
-#
+
+
 # for page in range(1, 29):
 #     full_url = f"https://www.ixdzs.com/sort/8/index_0_2_0_{page}.html"
 #     response = get_response(full_url)
 #     content = html.etree.HTML(response.text)
 #     list_story(content)
 #     print(f"第{page}页爬完")
-#
-# task_pool.wait()
-#
+
+
+
 # for page in range(1, 999):
 #     full_url = f"https://www.ixdzs.com/sort/9/index_0_2_0_{page}.html"
 #     response = get_response(full_url)
 #     content = html.etree.HTML(response.text)
 #     list_story(content)
 #     print(f"第{page}页爬完")
-#
-# task_pool.wait()
-#
-# for page in range(1, 69):
-#     full_url = f"https://www.ixdzs.com/sort/10/index_0_2_0_{page}.html"
-#     response = get_response(full_url)
-#     content = html.etree.HTML(response.text)
-#     list_story(content)
-#     print(f"第{page}页爬完")
-#
-# task_pool.wait()
-#
-# for page in range(1, 6):
-#     full_url = f"https://www.ixdzs.com/sort/11/index_0_2_0_{page}.html"
-#     response = get_response(full_url)
-#     content = html.etree.HTML(response.text)
-#     list_story(content)
-#     print(f"第{page}页爬完")
-#
-# task_pool.wait()
-#
-# for page in range(1, 40):
-#     full_url = f"https://www.ixdzs.com/sort/12/index_0_2_0_{page}.html"
-#     response = get_response(full_url)
-#     content = html.etree.HTML(response.text)
-#     list_story(content)
-#     print(f"第{page}页爬完")
-#
-# task_pool.wait()
-#
-# for page in range(1, 34):
-#     full_url = f"https://www.ixdzs.com/sort/13/index_0_2_0_{page}.html"
-#     response = get_response(full_url)
-#     content = html.etree.HTML(response.text)
-#     list_story(content)
-#     print(f"第{page}页爬完")
-#
-# task_pool.wait()
-#
-# for page in range(1, 63):
-#     full_url = f"https://www.ixdzs.com/sort/14/index_0_2_0_{page}.html"
-#     response = get_response(full_url)
-#     content = html.etree.HTML(response.text)
-#     list_story(content)
-#     print(f"第{page}页爬完")
-#
-# task_pool.wait()
-#
-# for page in range(1, 3):
-#     full_url = f"https://www.ixdzs.com/sort/15/index_0_2_0_{page}.html"
-#     response = get_response(full_url)
-#     content = html.etree.HTML(response.text)
-#     list_story(content)
-#     print(f"第{page}页爬完")
-#
-# task_pool.wait()
+
+
+
+for page in range(1, 69):
+    full_url = f"https://www.ixdzs.com/sort/10/index_0_2_0_{page}.html"
+    response = get_response(full_url)
+    content = html.etree.HTML(response.text)
+    list_story(content)
+    print(f"第{page}页爬完")
+
+
+
+for page in range(1, 6):
+    full_url = f"https://www.ixdzs.com/sort/11/index_0_2_0_{page}.html"
+    response = get_response(full_url)
+    content = html.etree.HTML(response.text)
+    list_story(content)
+    print(f"第{page}页爬完")
+
+
+
+for page in range(1, 40):
+    full_url = f"https://www.ixdzs.com/sort/12/index_0_2_0_{page}.html"
+    response = get_response(full_url)
+    content = html.etree.HTML(response.text)
+    list_story(content)
+    print(f"第{page}页爬完")
+
+
+
+for page in range(1, 34):
+    full_url = f"https://www.ixdzs.com/sort/13/index_0_2_0_{page}.html"
+    response = get_response(full_url)
+    content = html.etree.HTML(response.text)
+    list_story(content)
+    print(f"第{page}页爬完")
+
+
+
+for page in range(1, 63):
+    full_url = f"https://www.ixdzs.com/sort/14/index_0_2_0_{page}.html"
+    response = get_response(full_url)
+    content = html.etree.HTML(response.text)
+    list_story(content)
+    print(f"第{page}页爬完")
+
+
+
+for page in range(1, 3):
+    full_url = f"https://www.ixdzs.com/sort/15/index_0_2_0_{page}.html"
+    response = get_response(full_url)
+    content = html.etree.HTML(response.text)
+    list_story(content)
+    print(f"第{page}页爬完")
+
+
 
 
 print("完成")
